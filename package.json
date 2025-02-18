@@ -1,0 +1,4 @@
+{
+    "dependencies": { "parcel": "^2.13.3" },
+    "scripts": { "run": "parcel build browser.html & node https.mjs" }
+}
