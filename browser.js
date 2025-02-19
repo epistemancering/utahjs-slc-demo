@@ -1,22 +1,21 @@
 const topicsUl = /**@type {HTMLUListElement}*/(document.querySelector("ul"))
 const body = String(Math.random())
 
-const downloadTopics = async () => {
-    const topicsList = await (await fetch("/topics", { method: "POST", body })).json()
-    let topicsHTML = ""
+;(async () => {
+    while (true) {
+        const topicsList = await (await fetch("/topics", { method: "POST", body })).json()
+        let topicsHTML = ""
 
-    for (const topic in topicsList) {
-        topicsHTML += `<li>
-            <input id = "li${topic}" type = "checkbox" ${localStorage[topic]}>
-            ${topic}: ${topicsList[topic]} votes
-        </li>`
+        for (const topic in topicsList) {
+            topicsHTML += `<li>
+                <input id = "li${topic}" type = "checkbox" ${localStorage[topic]}>
+                ${topic}: ${topicsList[topic]} votes
+            </li>`
+        }
+
+        topicsUl.innerHTML = topicsHTML
     }
-
-    topicsUl.innerHTML = topicsHTML
-    downloadTopics()
-}
-
-downloadTopics()
+})()
 
 topicsUl.onclick = async (/**@type {MouseEvent}*/ event) => {
     const clickedInput = /**@type {HTMLInputElement}*/(event.target)
